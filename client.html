@@ -1,0 +1,65 @@
+<!doctype html5>
+<head>
+    <title>Sample Client</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            $("#send").on('click',function() {
+                endpoint = $("#endpoint").val()
+                url = "http://127.0.0.1:5000" + endpoint
+                $("#url").val(url)
+                payload = []
+                console.log(payload)
+                data = {
+                    title : "This is a payload",
+                    val1 : $("#val1").val(),
+                    val2 : $("#val2").val(),
+                    val3 : $("#val3").val(),
+                    val4 : $("#val4").val(),
+                    val5 : $("#val5").val(),
+                    val6 : $("#val6").val(),                   
+                }
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data : data,
+                    crossDomain : true,
+                    success : function(r) {
+                        console.log('success')
+                        $("#region").html(r)
+                        try {
+                            data = JSON.parse(r)
+                            console.log(data)
+                        }
+                        catch {
+                            console.log('the response is not valid json')
+                        }
+                    },
+                    error : function(e) {
+                        console.log(e)
+                    }
+
+                })
+            })
+
+        })
+    </script>
+    <style>
+        textarea#region {
+            width: 600px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <textarea id="region">This is where we will see ajax (asynchronous javascript and xml) responses</textarea><br>
+    API Endpoint: <input type="text" id="endpoint" value="/"> <input type="text" id="url" value="" readonly style="width: 300px"><br>
+    val1 <input type="text" id="val1" class='data' value=""><br>
+    val2 <input type="text" id="val2" class='data' value=""><br>
+    val3 <input type="text" id="val3" class='data' value=""><br>
+    val4 <input type="text" id="val4" class='data' value=""><br>
+    val5 <input type="text" id="val5" class='data' value=""><br>
+    val6 <input type="text" id="val6" class='data' value=""><br>
+    
+    <button id="send">Send Request to Server</button>
+</body>
