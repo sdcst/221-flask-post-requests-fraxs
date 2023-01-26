@@ -1,0 +1,46 @@
+<head>
+<title>Sample Client</title>
+<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function() {
+        $("#send").on('click',function() {
+            endpoint = $("#endpoint").val()
+            url = "http://127.0.0.1:5000/add"
+            payload = {'password' : '289ca48885442b5480dd76df484e1f90867a2961493b7c60e542e84addce5d1e'}
+            console.log(payload)
+            data = {
+                title : "This is a payload",
+                val1 : $("#val1").val(),                 
+            }
+            $.ajax({
+                url: url,
+                type: "POST",
+                data : data,
+                crossDomain : true,
+                success : function(r) {
+                    console.log('success')
+                    $("#region").html(r)
+                    try {
+                        data = JSON.parse(r)
+                        console.log(data)
+                    }
+                    catch {
+                        console.log('the response is not valid json')
+                    }
+                },
+                error : function(e) {
+                    console.log(e)
+                }
+
+            })
+        })
+
+    })
+</script>
+<body>
+    Enter new quote <input type="text" id="val1" class='data' value=""><br>
+    
+    <button id="send">Enter quote to database</button>
+</body>
+
+</head>

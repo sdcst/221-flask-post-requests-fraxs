@@ -5,7 +5,7 @@ import json, requests
 
 url = "http://127.0.0.1:5000/post"
 payload = {
-    'var1'  : "some data",
+    'password'  : "some data",
     'age'   : 20,
     'money' : 15.25,
     'boolean' : True,
